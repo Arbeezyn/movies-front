@@ -1,0 +1,51 @@
+.container {
+  display: grid;
+  grid-template-areas:
+    "info . img"
+    "video video video";
+
+  justify-content: center;
+  gap: 20px;
+}
+
+.info {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  grid-area: video;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: white;
+  grid-area: title;
+}
+
+.age {
+  font-size: 18px;
+  color: white;
+  grid-area: age;
+}
+
+.description {
+  font-size: 16px;
+  color: white;
+  grid-area: description;
+  padding-top: 10vh;
+}
+
+.img {
+  width: 500px;
+  height: 700px;
+  object-fit: contain;
+  grid-area: img;
+}
