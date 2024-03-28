@@ -8,6 +8,13 @@ export const Route = createFileRoute("/movie/$movieId")({
   component: Movie,
 });
 
+let isAuth = false;
+localStorage.getItem("user") !== null ? (isAuth = true) : (isAuth = false);
+let id = "";
+if (isAuth) {
+  id = JSON.parse(localStorage.getItem("user") || "{}").id;
+}
+
 function Movie() {
   const { movieId } = Route.useParams();
   const [movie, setMovie] = useState<IMovie>();
@@ -16,7 +23,20 @@ function Movie() {
     axios.get(`http://localhost:3000/movie/${movieId}`).then((response) => {
       setMovie(response.data);
     });
-  }, []);
+  }, [movieId]);
+
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:3000/movie/${movieId}`)
+      .then(() => {
+        console.log("Movie deleted successfully");
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.error("Error deleting movie:", error);
+        // Handle error, show message to user, etc.
+      });
+  };
 
   return (
     <div className={styles.container}>
@@ -29,8 +49,10 @@ function Movie() {
       <img
         className={styles.img}
         src={
-          "http://localhost:3000/" + movie?.posterUrl.replace(/^uploads\//, "")
+          "http://localhost:3000/" +
+          (movie?.posterUrl || "").replace(/^uploads\//, "")
         }
+        alt="Movie poster"
       />
 
       {movie?.movieUrl ? (
@@ -38,7 +60,7 @@ function Movie() {
           <source
             src={
               "http://localhost:3000/" +
-              movie?.movieUrl.replace(/^uploads\//, "")
+              (movie?.movieUrl || "").replace(/^uploads\//, "")
             }
             type="video/mp4"
           />
@@ -46,6 +68,12 @@ function Movie() {
         </video>
       ) : (
         <p>No movie</p>
+      )}
+
+      {id === "66056443d74775b1ec2c0cde" && (
+        <button onClick={handleDelete} className={styles.delete}>
+          Удалить
+        </button>
       )}
     </div>
   );

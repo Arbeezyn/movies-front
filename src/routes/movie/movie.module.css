@@ -2,10 +2,22 @@
   display: grid;
   grid-template-areas:
     "info . img"
+    " delete . ."
     "video video video";
 
   justify-content: center;
   gap: 20px;
+}
+
+.delete {
+  grid-area: delete;
+  padding: 10px;
+  background-color: red;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Добавляем плавный переход */
 }
 
 .info {
@@ -26,19 +38,16 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: white;
   grid-area: title;
 }
 
 .age {
   font-size: 18px;
-  color: white;
   grid-area: age;
 }
 
 .description {
   font-size: 16px;
-  color: white;
   grid-area: description;
   padding-top: 10vh;
 }

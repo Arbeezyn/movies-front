@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UploadImport } from './routes/upload'
+import { Route as RegisterImport } from './routes/register'
 import { Route as FilmPageImport } from './routes/filmPage'
 import { Route as IndexImport } from './routes/index'
 import { Route as MovieIndexImport } from './routes/movie/index'
@@ -21,6 +22,11 @@ import { Route as MovieMovieIdImport } from './routes/movie/$movieId'
 
 const UploadRoute = UploadImport.update({
   path: '/upload',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RegisterRoute = RegisterImport.update({
+  path: '/register',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -56,6 +62,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FilmPageImport
       parentRoute: typeof rootRoute
     }
+    '/register': {
+      preLoaderRoute: typeof RegisterImport
+      parentRoute: typeof rootRoute
+    }
     '/upload': {
       preLoaderRoute: typeof UploadImport
       parentRoute: typeof rootRoute
@@ -76,6 +86,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
   FilmPageRoute,
+  RegisterRoute,
   UploadRoute,
   MovieMovieIdRoute,
   MovieIndexRoute,

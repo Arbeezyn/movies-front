@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
+import styles from "./upload.module.css";
+
 interface FormData {
   title: string;
   poster: FileList;
@@ -42,11 +44,17 @@ function Upload() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <h1 className={styles.title}>Загрузка фильма</h1>
+        <label>Название</label>
         <input type="text" {...register("title")} />
+        <label>Описание</label>
         <input type="text" {...register("description")} />
+        <label>Дата выпуска</label>
         <input type="number" {...register("age")} />
+        <label>Файл с постером</label>
         <input type="file" accept="image/*" {...register("poster")} />
+        <label>Файл с фильмом</label>
         <input type="file" accept="video/*" {...register("movie")} />
         <input type="submit" />
       </form>
