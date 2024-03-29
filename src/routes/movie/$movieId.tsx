@@ -42,7 +42,7 @@ function Movie() {
     <div className={styles.container}>
       <div className={styles.info}>
         <h1 className={styles.title}>{movie?.title}</h1>
-        <p className={styles.age}>{movie?.age}</p>
+        <p className={styles.age}>Год выпуска: {movie?.age}</p>
         <p className={styles.description}>{movie?.description}</p>
       </div>
 
