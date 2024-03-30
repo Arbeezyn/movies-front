@@ -18,7 +18,6 @@ if (isAuth) {
 function Movie() {
   const { movieId } = Route.useParams();
   const [movie, setMovie] = useState<IMovie>();
-
   useEffect(() => {
     axios.get(`http://localhost:3000/movie/${movieId}`).then((response) => {
       setMovie(response.data);
@@ -48,20 +47,14 @@ function Movie() {
 
       <img
         className={styles.img}
-        src={
-          "http://localhost:3000/" +
-          (movie?.posterUrl || "").replace(/^uploads\//, "")
-        }
+        src={"http://localhost:3000/" + movie?.posterUrl.slice(8)}
         alt="Movie poster"
       />
 
       {movie?.movieUrl ? (
         <video className={styles.video} controls>
           <source
-            src={
-              "http://localhost:3000/" +
-              (movie?.movieUrl || "").replace(/^uploads\//, "")
-            }
+            src={"http://localhost:3000/" + (movie?.movieUrl || "").slice(8)}
             type="video/mp4"
           />
           Your browser does not support the video tag.
